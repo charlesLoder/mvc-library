@@ -1,0 +1,159 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: 14px Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+div[slot="content"] {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+.title {
+  font-size: 2rem;
+  font-family: Georgia;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+header {
+  background: #8693a0;
+  padding: 1rem 0;
+  border-bottom: 1px solid #000;
+}
+
+main {
+  background: #cac1b0;
+  min-height: 100dvh;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  .container {
+    padding-bottom: 3rem;
+  }
+
+  .title {
+    margin-bottom: 1rem;
+  }
+
+  .title:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 60%; /* or 100px */
+    border-bottom: 1px solid #000;
+  }
+}
+
+li.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #000;
+}
+
+.item-title {
+  font-weight: 400;
+}
+
+.button {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+}
+
+.button-show {
+  background: #5fad80;
+  color: #fff;
+}
+
+.button-show:hover {
+  background: #3f7d5d;
+}
+
+.button-edit {
+  background: #b5905c;
+  color: #fff;
+}
+
+.button-edit:hover {
+  background: #a37e4e;
+}
+
+.button-delete {
+  background: #854b50;
+  color: #fff;
+}
+
+.details {
+  margin-bottom: 1.15rem;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  gap: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  input,
+  textarea,
+  select {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #000;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.message {
+  font-style: italic;
+}

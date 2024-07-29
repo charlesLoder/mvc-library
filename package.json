@@ -1,0 +1,31 @@
+{
+  "name": "mvc-library",
+  "type": "module",
+  "version": "1.0.0",
+  "author": "Charles Loder",
+  "description": "An MVC project using SQLite, Drizzle, Hono, and all server rendered",
+  "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "migrate": "node migrate.js",
+    "migration": "drizzle-kit generate --config drizzle.config.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [
+    "MVC"
+  ],
+  "dependencies": {
+    "@hono/node-server": "1.5.0",
+    "better-sqlite3": "9.3.0",
+    "drizzle-orm": "0.32.1",
+    "hono": "3.12.7",
+    "jsx": "0.9.89",
+    "react-jsx": "1.0.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "0.23.0"
+  }
+}

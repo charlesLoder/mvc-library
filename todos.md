@@ -1,0 +1,1 @@
+- Update book: adding an author doesn't work
