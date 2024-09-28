@@ -3,10 +3,20 @@ import { html } from "hono/html";
 
 /**
  *
+ * @param {Object} options
+ * @param {string} options.href
+ * @param {string} options.text
+ */
+export function DefaultButton({ href, text }) {
+  return html`<a class="button" href="${href}">${text}</a>`;
+}
+
+/**
+ *
  * @param {string} href
  */
 export function ShowButton(href) {
-  return html`<a class="button button-show" href="${href}">Show</a>`;
+  return html`<a class="button" href="${href}">Show</a>`;
 }
 
 /**
@@ -14,7 +24,7 @@ export function ShowButton(href) {
  * @param {string} href
  */
 export function EditButton(href) {
-  return html`<a class="button button-edit" href="${href}">Edit</a>`;
+  return html`<a class="button" data-button-variant="edit" href="${href}">Edit</a>`;
 }
 
 /**
@@ -22,5 +32,5 @@ export function EditButton(href) {
  * @param {string} href
  */
 export function DeleteButton(href) {
-  return html`<a class="button button-delete" href="${href}">Delete</a>`;
+  return html`<a class="button" data-button-variant="delete" href="${href}">Delete</a>`;
 }

@@ -1,5 +1,6 @@
 //@ts-check
 import { html } from "hono/html";
+import { DefaultButton, EditButton, ShowButton } from "../../views/templates/partials/buttons.js";
 import { Base } from "../layout/base.js";
 
 /**
@@ -27,8 +28,8 @@ export const IndexTemplate = ({ title, message, records, basePath }) => {
                 <li class="list-item">
                   <div class="item-title">${record.text}</div>
                   <div class="item-buttons">
-                    <a class="button button-show" href="/${basePath}/${record.id}">Show</a>
-                    <a class="button button-edit" href="/${basePath}/${record.id}/edit">Edit</a>
+                    ${ShowButton(`/${basePath}/${record.id}`)}
+                    ${EditButton(`/${basePath}/${record.id}/edit`)}
                   </div>
                 </li>
               `
@@ -36,7 +37,7 @@ export const IndexTemplate = ({ title, message, records, basePath }) => {
           : "Nothing to see here"}
       </ul>
       <div>
-        <a class="button button-show" href="/${basePath}/new">New</a>
+        ${DefaultButton({ href: `/${basePath}/new`, text: "New" })}
       </div>
       `
   );
