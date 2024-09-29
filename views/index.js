@@ -7,13 +7,12 @@ const Index = () => {
   return Base(
     //prettier-ignore
     html
-    `<div slot="content">
-      ${ListTemplate("Wecome to the MVC Library", [
+    `${ListTemplate("Wecome to the MVC Library", [
         { title: "Books", show_button_href: "/books" },
         { title: "Authors", show_button_href: "/authors" },
         { title: "Genres", show_button_href: "/genres" },
       ], "No records")}
-    </div>`
+    `
   );
 };
 

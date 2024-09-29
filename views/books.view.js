@@ -104,16 +104,16 @@ class BooksView extends BaseView {
       //prettier-ignore
       html`
       <h1>Edit ${book.title}</h1>
-      <form action="/books/${book.id}" method="post">
-        <div class="field">
+      <form action="/books/${book.id}" method="post" class="stack">
+        <fieldset class="stack">
           <label for="title">Title</label>
           <input type="text" name="title" value="${book.title}" />
-        </div>
-        <div class="field">
+        </fieldset>
+        <fieldset class="stack">
           <label for="pubdate">Pubdate</label>
           <input type="text" name="pubdate" value="${book.pubdate}" />
-        </div>
-        <div class="field">
+        </fieldset>
+        <fieldset class="stack">
           <label for="genre_id">Genre</label>
           <select name="genre_id">
             <option value="" ${!currentGenre ? "selected" : ""} disabled>Choose a genre</option>
@@ -125,8 +125,8 @@ class BooksView extends BaseView {
               `
             )}
           </select>
-        </div>
-        <div class="field">
+        </fieldset>
+        <fieldset class="stack">
           <label for="author_id">Author(s)</label>
           <select name="author_id" multiple>
             ${authors.map(
@@ -137,7 +137,7 @@ class BooksView extends BaseView {
               `
             )}
           </select>
-        </div>
+        </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />
         </div>
@@ -154,15 +154,15 @@ class BooksView extends BaseView {
       //prettier-ignore
       html`
       <h1>New Book</h1>
-      <form action="/books" method="post">
-        <div class="field">
+      <form action="/books" method="post" class="stack">
+        <fieldset class="stack">
           <label for="title">Title</label>
           <input type="text" name="title" />
-        </div>
-        <div class="field">
+        </fieldset>
+        <fieldset class="stack">
           <label for="pubdate">Pubdate</label>
           <input type="text" name="pubdate" />
-        </div>
+        </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />
         </div>

@@ -81,17 +81,17 @@ class GenresView extends BaseView {
       //prettier-ignore
       html`
       <h1>Edit ${genre.name}</h1>
-      <form action="/genres/${genre.id}" method="post">
+      <form action="/genres/${genre.id}" method="post" class="stack">
         <fieldset>
           <div class="field">
             <label for="name">Name</label>
             <input type="text" name="name" value="${genre.name}" />
           </div>
         </fieldset>
-        <div class="field">
+        <fieldset>
           <label for="description">Description</label>
           <textarea name="description">${genre.description}</textarea>
-        </div>
+        </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />
         </div>

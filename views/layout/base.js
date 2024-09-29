@@ -15,10 +15,10 @@ const Base = (content) => {
         <title>Library</title>
         <link rel="stylesheet" href="/public/style.css" />
       </head>
-      <body>
+      <body class="stack">
         ${Header()}
-        <main>
-          <div class="container">
+        <main class="stack">
+          <div class="stack horizontal-center">
             ${content}
           </div>
         </main>

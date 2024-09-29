@@ -83,21 +83,22 @@ class AuthorsView extends BaseView {
       //prettier-ignore
       html`
       <h1>Edit ${author.first_name} ${author.last_name}</h1>
-      <form action="/authors/${author.id}" method="post">
+      <form action="/authors/${author.id}" method="post" class="stack">
         <input type="hidden" name="_method" value="PUT" />
-        <fieldset>
-          <div class="field">
+        <fieldset class="stack">
+          <div class="stack">
             <label for="first_name">First Name</label>
             <input type="text" name="first_name" value="${author.first_name}" />
           </div>
-          <div class="field">
+          <div class="stack">
             <label for="last_name">Last Name</label>
             <input type="text" name="last_name" value="${author.last_name}" />
           </div>
         </fieldset>
-        <div class="field">
+        <fieldset class="stack">
+          <label for="bio">Bio</label>
           <textarea name="bio">${author.bio}</textarea>
-        </div>
+        </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />
         </div>
@@ -114,21 +115,21 @@ class AuthorsView extends BaseView {
       //prettier-ignore
       html`
       <h1>New Author</h1>
-      <form action="/authors" method="post">
-        <fieldset>
-          <div class="field">
+      <form action="/authors" method="post" class="stack">
+        <fieldset class="stack">
+          <div class="stack">
             <label for="first_name">First Name</label>
             <input type="text" name="first_name" />
           </div>
-          <div class="field">
+          <div class="stack">
             <label for="last_name">Last Name</label>
             <input type="text" name="last_name" />
           </div>
         </fieldset>
-        <div class="field">
+        <fieldset class="stack">
           <label for="bio">Bio</label>
           <textarea name="bio"></textarea>
-        </div>
+        </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />
         </div>

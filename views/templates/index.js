@@ -1,7 +1,8 @@
 //@ts-check
 import { html } from "hono/html";
-import { DefaultButton, EditButton, ShowButton } from "../../views/templates/partials/buttons.js";
+import { DefaultButton } from "../../views/templates/partials/buttons.js";
 import { Base } from "../layout/base.js";
+import { ListTemplate } from "./partials/list.js";
 
 /**
  * Displays a list of records
@@ -19,26 +20,16 @@ export const IndexTemplate = ({ title, message, records, basePath }) => {
   return Base(
     //prettier-ignore
     html`
-      <h1 class="title">${title}</h1>
-      ${message ? html`<p class="message">${message}</p>` : ""}
-      <ul class="list">
-          ${records.length ? records.map((record) =>
-            {
-              return html`
-                <li class="list-item">
-                  <div class="item-title">${record.text}</div>
-                  <div class="item-buttons">
-                    ${ShowButton(`/${basePath}/${record.id}`)}
-                    ${EditButton(`/${basePath}/${record.id}/edit`)}
-                  </div>
-                </li>
-              `
-            })
-          : "Nothing to see here"}
-      </ul>
+      ${ListTemplate(title, records.map(r => {
+        return  {
+          title: r.text,
+          show_button_href: `/${basePath}/${r.id}`,
+          edit_button_href: `/${basePath}/${r.id}/edit`
+        }
+      }), "No records")}
       <div>
         ${DefaultButton({ href: `/${basePath}/new`, text: "New" })}
       </div>
-      `
+    `
   );
 };

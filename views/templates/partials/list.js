@@ -1,6 +1,6 @@
 //@ts-check
 import { html } from "hono/html";
-import { ShowButton, EditButton, DeleteButton } from "./buttons.js";
+import { DeleteButton, EditButton, ShowButton } from "./buttons.js";
 
 /**
  * @typedef {{title: string, show_button_href?: string, edit_button_href?: string, delete_button_href?: string}} ListItemTemplateOptions
@@ -19,9 +19,9 @@ export const ListItemTemplate = ({
   delete_button_href = "",
 }) => {
   return html`
-    <li class="list-item">
+    <li class="list-item row">
       <div class="item-title">${title}</div>
-      <div class="item-buttons">
+      <div class="item-buttons row">
         ${show_button_href ? html`${ShowButton(show_button_href)}` : ""}
         ${edit_button_href ? html`${EditButton(edit_button_href)}` : ""}
         ${delete_button_href ? html`${DeleteButton(delete_button_href)}` : ""}
@@ -41,7 +41,7 @@ export const ListItemTemplate = ({
 export const ListTemplate = (title, items, empty_message) => {
   return html`
     <h2 class="title">${title}</h2>
-    <ul class="list">
+    <ul class="stack" role="list">
       ${items.length ? items.map((item) => ListItemTemplate(item)) : html`<p>${empty_message}</p>`}
     </ul>
   `;
