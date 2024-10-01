@@ -82,13 +82,11 @@ class GenresView extends BaseView {
       html`
       <h1>Edit ${genre.name}</h1>
       <form action="/genres/${genre.id}" method="post" class="stack">
-        <fieldset>
-          <div class="field">
-            <label for="name">Name</label>
-            <input type="text" name="name" value="${genre.name}" />
-          </div>
+        <fieldset class="stack">
+          <label for="name">Name</label>
+          <input type="text" name="name" value="${genre.name}" />
         </fieldset>
-        <fieldset>
+        <fieldset class="stack">
           <label for="description">Description</label>
           <textarea name="description">${genre.description}</textarea>
         </fieldset>
@@ -105,15 +103,15 @@ class GenresView extends BaseView {
       //prettier-ignore
       html`
       <h1>New Genre</h1>
-      <form action="/genres" method="post">
-        <div class="field">
+      <form action="/genres" method="post" class="stack">
+        <fieldset class="stack">
           <label for="name">Name</label>
           <input type="text" name="name" />
-        </div>
-        <div class="field">
+        </fieldset>
+        <fieldset class="stack">
           <label for="description">Description</label>
           <textarea name="description"></textarea>
-        </div>
+        </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />
         </div>
