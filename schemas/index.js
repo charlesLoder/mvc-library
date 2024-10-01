@@ -69,7 +69,7 @@ export const genresRelations = relations(genres, ({ many }) => ({
 
 export const users = sqliteTable("users", {
   id: integer("id").primaryKey(),
-  username: text("username").notNull(),
+  username: text("username").notNull().unique(),
   password: text("password").notNull(),
   role_id: integer("role_id")
     .references(() => roles.id, { onDelete: "set null" })
