@@ -14,6 +14,7 @@ import { ShowTemplate } from "./templates/show.js";
  * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").authors>} Author
  * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").genres>} Genre
  * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").book_authors>} BookAuthor
+ * @typedef {import("hono").Context} Context
  */
 
 class BooksView extends BaseView {
@@ -26,11 +27,12 @@ class BooksView extends BaseView {
   /**
    * Displays a list of books
    *
+   * @param {Context} context
    * @param {Book[]} books
    * @param {string=} message
    */
-  index(books, message = "") {
-    return IndexTemplate({
+  index(context, books, message = "") {
+    return IndexTemplate(context, {
       title: "Books",
       message,
       records: books.map((book) => {
@@ -46,11 +48,12 @@ class BooksView extends BaseView {
   /**
    * Displays a single book
    *
+   * @param {Context} context
    * @param {Book} book
    * @param {Author[]} authors
    * @param {Genre | null} genre
    */
-  show(book, authors, genre = null) {
+  show(context, book, authors, genre = null) {
     //prettier-ignore
     const content = html`
       <div class="details summary">
@@ -82,7 +85,7 @@ class BooksView extends BaseView {
        ${DeleteForm({ href: `/books/${book.id}/delete`, text: `Delete ${book.title}` })}
       </div>
     `;
-    return ShowTemplate({
+    return ShowTemplate(context, {
       title: String(book.title),
       content,
     });
@@ -91,6 +94,7 @@ class BooksView extends BaseView {
   /**
    * Render a view for a form to edit a book
    *
+   * @param {Context} context
    * @param {Object} data
    * @param {Book} data.book
    * @param {Genre[]} data.genres
@@ -98,9 +102,10 @@ class BooksView extends BaseView {
    * @param {Author[]} data.authors
    * @param {Author[]} data.currentAuthors
    */
-  edit({ book, genres, currentGenre, authors, currentAuthors }) {
+  edit(context, { book, genres, currentGenre, authors, currentAuthors }) {
     const currentAuthorIds = currentAuthors.map((author) => author.id);
     return Base(
+      context,
       //prettier-ignore
       html`
       <h1>Edit ${book.title}</h1>
@@ -148,9 +153,12 @@ class BooksView extends BaseView {
 
   /**
    * Render a view for a form to create a new book
+   *
+   * @param {Context} context
    */
-  new() {
+  new(context) {
     return Base(
+      context,
       //prettier-ignore
       html`
       <h1>New Book</h1>

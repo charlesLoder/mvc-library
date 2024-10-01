@@ -30,7 +30,7 @@ class GenresController extends BaseController {
       this.model.getById(Number(id)),
       new BooksModel().getBooksByGenreId(Number(id)),
     ]);
-    return context.html(this.view.show(genres[0], books));
+    return context.html(this.view.show(context, genres[0], books));
   }
 
   /**
@@ -41,7 +41,7 @@ class GenresController extends BaseController {
   async edit(context) {
     const id = context.req.param("id");
     const genre = await this.model.getById(Number(id));
-    return context.html(this.view.edit(genre[0]));
+    return context.html(this.view.edit(context, genre[0]));
   }
 
   /**

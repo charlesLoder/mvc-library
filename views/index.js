@@ -3,8 +3,16 @@ import { html } from "hono/html";
 import { Base } from "./layout/base.js";
 import { ListTemplate } from "./templates/partials/list.js";
 
-const Index = () => {
+/**
+ * @typedef {import("hono").Context} context
+ */
+
+/**
+ * @param {context} context
+ */
+const Index = (context) => {
   return Base(
+    context,
     //prettier-ignore
     html
     `${ListTemplate("Wecome to the MVC Library", [

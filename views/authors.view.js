@@ -12,6 +12,7 @@ import { ShowTemplate } from "./templates/show.js";
 /**
  * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").authors>} Author
  * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").books>} Book
+ * @typedef {import("hono").Context} Context
  */
 
 class AuthorsView extends BaseView {
@@ -24,10 +25,11 @@ class AuthorsView extends BaseView {
   /**
    * Displays a list of authors
    *
+   * @param {Context} context
    * @param {Author[]} authors
    */
-  index(authors) {
-    return IndexTemplate({
+  index(context, authors) {
+    return IndexTemplate(context, {
       title: "Authors",
       records: authors.map((author) => {
         return {
@@ -42,10 +44,11 @@ class AuthorsView extends BaseView {
   /**
    * Render a view for a single author
    *
+   * @param {Context} context
    * @param {Author} author
    * @param {Book[]} books
    */
-  show(author, books) {
+  show(context, author, books) {
     const content = html`
       <p>${author.bio}</p>
       <div>${EditButton(`/authors/${author.id}/edit`)}</div>
@@ -67,7 +70,7 @@ class AuthorsView extends BaseView {
         })}
       </div>
     `;
-    return ShowTemplate({
+    return ShowTemplate(context, {
       title: String(author.first_name + " " + author.last_name),
       content,
     });
@@ -76,10 +79,12 @@ class AuthorsView extends BaseView {
   /**
    * Render a view for a form to edit an author
    *
+   * @param {Context} context
    * @param {Author} author
    */
-  edit(author) {
+  edit(context, author) {
     return Base(
+      context,
       //prettier-ignore
       html`
       <h1>Edit ${author.first_name} ${author.last_name}</h1>
@@ -109,9 +114,12 @@ class AuthorsView extends BaseView {
 
   /**
    * Render a view for a form to create a new author
+   *
+   * @param {Context} context
    */
-  new() {
+  new(context) {
     return Base(
+      context,
       //prettier-ignore
       html`
       <h1>New Author</h1>

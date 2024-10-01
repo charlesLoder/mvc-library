@@ -35,6 +35,7 @@ class BooksController extends BaseController {
     const { id, title, pubdate, description, genre_id, genre, book_authors } = resp[0];
     return context.html(
       this.view.show(
+        context,
         { id, title, pubdate, description, genre_id },
         book_authors.map((r) => r.author),
         genre
@@ -55,7 +56,7 @@ class BooksController extends BaseController {
     ]);
     const { id, title, pubdate, description, genre_id, genre, book_authors } = resp[0];
     return context.html(
-      this.view.edit({
+      this.view.edit(context, {
         book: { id, title, pubdate, description, genre_id },
         currentGenre: genre,
         genres,

@@ -29,6 +29,7 @@ class AuthorsController extends BaseController {
     const { id, first_name, last_name, bio, book_authors } = resp;
     return context.html(
       this.view.show(
+        context,
         { id, first_name, last_name, bio },
         book_authors.map((r) => r.book)
       )
@@ -43,7 +44,7 @@ class AuthorsController extends BaseController {
   async edit(context) {
     const id = context.req.param("id");
     const author = await this.model.getById(Number(id));
-    return context.html(this.view.edit(author[0]));
+    return context.html(this.view.edit(context, author[0]));
   }
 
   /**

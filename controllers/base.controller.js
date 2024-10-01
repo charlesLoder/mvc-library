@@ -54,7 +54,7 @@ class BaseController {
    */
   async index(context) {
     const all = await this.model.getAll();
-    const view = this.view.index(all);
+    const view = this.view.index(context, all);
     return context.html(view);
   }
 
@@ -64,7 +64,7 @@ class BaseController {
    * @param {Context} context
    */
   show(context) {
-    return context.html(this.view.show());
+    return context.html(this.view.show(context));
   }
 
   /**
@@ -73,7 +73,7 @@ class BaseController {
    * @param {Context} context
    */
   edit(context) {
-    return context.html(this.view.edit());
+    return context.html(this.view.edit(context));
   }
 
   /**
@@ -82,7 +82,7 @@ class BaseController {
    * @param {Context} context
    */
   new(context) {
-    return context.html(this.view.new());
+    return context.html(this.view.new(context));
   }
 }
 

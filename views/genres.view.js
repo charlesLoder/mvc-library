@@ -12,6 +12,7 @@ import { ShowTemplate } from "./templates/show.js";
 /**
  * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").genres>} Genre
  * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").books>} Book
+ * @typedef {import("hono").Context} context
  */
 
 class GenresView extends BaseView {
@@ -24,10 +25,11 @@ class GenresView extends BaseView {
   /**
    * Displays a list of genres
    *
+   * @param {context} context
    * @param {Genre[]} genres
    */
-  index(genres) {
-    return IndexTemplate({
+  index(context, genres) {
+    return IndexTemplate(context, {
       title: "Genres",
       records: genres.map((genre) => {
         return {
@@ -42,10 +44,11 @@ class GenresView extends BaseView {
   /**
    * Displays a single genre and it's books
    *
+   * @param {context} context
    * @param {Genre} genre
    * @param {Book[]} books
    */
-  show(genre, books) {
+  show(context, genre, books) {
     const content = html`
       <p>${genre.description}</p>
       <div>${EditButton(`/genres/${genre.id}/edit`)}</div>
@@ -67,17 +70,19 @@ class GenresView extends BaseView {
         })}
       </div>
     `;
-    return ShowTemplate({
+    return ShowTemplate(context, {
       title: String(genre.name),
       content,
     });
   }
 
   /**
+   * @param {context} context
    * @param {Genre} genre
    */
-  edit(genre) {
+  edit(context, genre) {
     return Base(
+      context,
       //prettier-ignore
       html`
       <h1>Edit ${genre.name}</h1>
@@ -98,12 +103,16 @@ class GenresView extends BaseView {
     );
   }
 
-  new() {
+  /**
+   * @param {context} context
+   */
+  new(context) {
     return Base(
+      context,
       //prettier-ignore
       html`
       <h1>New Genre</h1>
-      <form action="/genres" method="post" class="stack">
+      <form action="/genres" method="post" class="stack"> 
         <fieldset class="stack">
           <label for="name">Name</label>
           <input type="text" name="name" />
