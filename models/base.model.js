@@ -51,7 +51,6 @@ class BaseModel {
    * Create a new record in the database
    *
    * @param {import("drizzle-orm").InferInsertModel<T>} data
-   * @returns {Promise<import("drizzle-orm").InferSelectModel<T>>}
    */
   async create(data) {
     return await this.db.insert(this.schema).values(data).returning();
