@@ -1,6 +1,5 @@
 //@ts-check
-import { eq } from "drizzle-orm";
-import { books, genres } from "../schemas/index.js";
+import { genres } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";
 
 /**
