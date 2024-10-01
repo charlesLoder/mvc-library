@@ -66,3 +66,45 @@ export const book_authorsRelations = relations(book_authors, ({ one }) => ({
 export const genresRelations = relations(genres, ({ many }) => ({
   books: many(books),
 }));
+
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey(),
+  username: text("username").notNull(),
+  password: text("password").notNull(),
+  role_id: integer("role_id")
+    .references(() => roles.id, { onDelete: "set null" })
+    .default(1),
+});
+
+export const roles = sqliteTable("roles", {
+  id: integer("id").primaryKey(),
+  name: text("name").notNull(),
+});
+
+export const sessions = sqliteTable("sessions", {
+  id: integer("id").primaryKey(),
+  user_id: integer("user_id")
+    .references(() => users.id, { onDelete: "set null" })
+    .notNull(),
+  token: text("token").notNull().unique(),
+  expires_at: text("expires_at").notNull(),
+});
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  role: one(roles, {
+    fields: [users.role_id],
+    references: [roles.id],
+  }),
+  sessions: many(sessions),
+}));
+
+export const rolesRelations = relations(roles, ({ many }) => ({
+  users: many(users),
+}));
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.user_id],
+    references: [users.id],
+  }),
+}));
