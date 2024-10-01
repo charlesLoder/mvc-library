@@ -53,3 +53,10 @@ INSERT INTO book_authors (book_id, author_id) VALUES
 (16, 2), (17, 6), (18, 7), (19, 5), (20, 1),
 (21, 8), (22, 4), (23, 7), (24, 5), (25, 6),
 (3, 6), (7, 1), (12, 8), (17, 3), (25, 3);
+
+INSERT INTO roles (id, name) VALUES
+(1, 'user'),
+(2, 'admin');
+
+INSERT INTO users (id, username, password, role_id) VALUES
+(1, "admin", "$2b$10$aJ.VGK8wOF/w0NhPohWeduMeav2a8UB11Hz4quyF.zwTnMHtYwQaK", 2);
