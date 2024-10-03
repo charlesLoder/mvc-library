@@ -17,8 +17,11 @@ import { SessionTimeOut } from "./views/session_time_out.js";
  */
 const app = new Hono();
 
+// middleware for server side logging
 app.use("*", async (c, next) => {
-  console.log(`[${c.req.method}]\t${c.req.path}`);
+  if (!c.req.path.includes(".")) {
+    console.log(`[${c.req.method}]\t${c.req.path}`);
+  }
   await next();
 });
 
