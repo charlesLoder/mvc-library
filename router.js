@@ -1,9 +1,11 @@
 // @ts-check
 /// <reference path="types.js" />
 
+import { authController } from "./controllers/auth.controller.js";
 import { authorsController } from "./controllers/authors.controller.js";
 import { booksController } from "./controllers/books.controller.js";
 import { genresController } from "./controllers/genres.controller.js";
+import { usersController } from "./controllers/users.controller.js";
 
 /**
  *
@@ -50,4 +52,25 @@ export default (app) => {
   app.route("/genres/:id").post(genresController.update.bind(genresController));
   app.route("/genres/:id/edit").get(genresController.edit.bind(genresController));
   app.route("/genres/:id/delete").post(genresController.delete.bind(genresController));
+
+  // auth
+  app.route("/signin").get(authController.renderSigninForm.bind(authController));
+  app.route("/signin").post(authController.processSignin.bind(authController));
+  app.route("/signup").get(authController.renderSignupForm.bind(authController));
+  app.route("/signup").post(authController.processSignup.bind(authController));
+  app.route("/profile").get(authController.renderProfile.bind(authController));
+  app.route("/profile").post(authController.update.bind(authController));
+  app.route("/profile/edit").get(authController.edit.bind(authController));
+  app.route("/signout").post(authController.processSignout.bind(authController));
+
+  // users
+  // protect users routes from everyone except for admin
+  app.use("/users/*", authenticateAdmin);
+  app.route("/users").get(usersController.index.bind(usersController));
+  app.route("/users").post(usersController.create.bind(usersController));
+  app.route("/users/new").get(usersController.new.bind(usersController));
+  app.route("/users/:id").get(usersController.getById.bind(usersController));
+  app.route("/users/:id").post(usersController.update.bind(usersController));
+  app.route("/users/:id/edit").get(usersController.edit.bind(usersController));
+  app.route("/users/:id/delete").post(usersController.delete.bind(usersController));
 };
