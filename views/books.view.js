@@ -65,10 +65,7 @@ class BooksView extends BaseView {
         <h3>Pubdate</h3>
         <p>${book.pubdate}</p>
       </div>
-      <div>
-        ${EditButton(`/books/${book.id}/edit`)}
-      </div>
-      ${ListTemplate(`Authors`, authors?.map(author => {
+      ${ListTemplate(context,`Authors`, authors?.map(author => {
         return {
           title: `${author.first_name} ${author.last_name}`,
           show_button_href: `/authors/${author.id}`,

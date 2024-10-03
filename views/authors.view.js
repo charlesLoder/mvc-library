@@ -49,6 +49,7 @@ class AuthorsView extends BaseView {
       <p>${author.bio}</p>
       <div>${EditButton(`/authors/${author.id}/edit`)}</div>
       ${ListTemplate(
+        context,
         `Books by ${author.first_name} ${author.last_name}`,
         books.map((book) => {
           return {

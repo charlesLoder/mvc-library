@@ -24,9 +24,10 @@ app.use(
     root: ".",
   })
 );
-app.get("/", (c) => c.html(Index()));
 
-app.notFound((c) => c.html(NotFound()));
+// views for high level pages (i.e. not resources controlled by a controller)
+app.get("/", (c) => c.html(Index(c)));
+app.notFound((c) => c.html(NotFound(c)));
 
 router(app);
 

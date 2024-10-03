@@ -15,12 +15,10 @@ import { DeleteButton, EditButton, ShowButton } from "./buttons.js";
  * @param {ListItemTemplateOptions} options
  *
  */
-export const ListItemTemplate = ({
-  title,
-  show_button_href = "",
-  edit_button_href = "",
-  delete_button_href = "",
-}) => {
+export const ListItemTemplate = (
+  context,
+  { title, show_button_href = "", edit_button_href = "", delete_button_href = "" }
+) => {
   return html`
     <li class="list-item row">
       <div class="item-title">${title}</div>
@@ -42,11 +40,13 @@ export const ListItemTemplate = ({
  * @param {string} empty_message
  *
  */
-export const ListTemplate = (title, items, empty_message) => {
+export const ListTemplate = (context, title, items, empty_message) => {
   return html`
     <h2 class="title">${title}</h2>
     <ul class="stack" role="list">
-      ${items.length ? items.map((item) => ListItemTemplate(item)) : html`<p>${empty_message}</p>`}
+      ${items.length
+        ? items.map((item) => ListItemTemplate(context, item))
+        : html`<p>${empty_message}</p>`}
     </ul>
   `;
 };

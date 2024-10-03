@@ -49,6 +49,7 @@ class GenresView extends BaseView {
       <p>${genre.description}</p>
       <div>${EditButton(`/genres/${genre.id}/edit`)}</div>
       ${ListTemplate(
+        context,
         `Books in ${genre.name}`,
         books.map((book) => {
           return {

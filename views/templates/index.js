@@ -23,7 +23,7 @@ export const IndexTemplate = (context, { title, message, records, basePath }) =>
     context,
     //prettier-ignore
     html`
-      ${ListTemplate(title, records.map(r => {
+      ${ListTemplate(context, title, records.map(r => {
         return  {
           title: r.text,
           show_button_href: `/${basePath}/${r.id}`,
