@@ -5,7 +5,7 @@ import { html } from "hono/html";
  *
  * @param {Object} options
  * @param {string=} options.heading
- * @param {string=} options.body
+ * @param {(string | ReturnType<typeof html>)=} options.body
  * @param {string=} options.variant
  */
 export function BaseCallout({ heading, body, variant }) {
@@ -18,8 +18,9 @@ export function BaseCallout({ heading, body, variant }) {
 }
 
 /**
+ * An error callout
  *
- * @param {string} body
+ * @param {(string | ReturnType<typeof html>)=} body
  */
 export function ErrorCallout(body) {
   return BaseCallout({
@@ -30,10 +31,11 @@ export function ErrorCallout(body) {
 }
 
 /**
+ * A warning callout
  *
- *  @param {Object} options
+ * @param {Object} options
  * @param {string=} options.heading
- * @param {string=} options.body
+ * @param {(string | ReturnType<typeof html>)=} options.body
  */
 export function WarningCallout({ heading, body }) {
   return BaseCallout({
