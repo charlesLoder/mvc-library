@@ -18,11 +18,17 @@
 body {
   background-color: var(--background-color);
   font-family: var(--font-family-sans);
+
+  & > * {
+    padding-inline-start: 1rem;
+    padding-inline-end: 1rem;
+  }
 }
 
 header {
   background: var(--primary-color);
-  padding: 1rem 0;
+  padding-block-start: 1rem;
+  padding-block-end: 1rem;
   border-bottom: 1px solid #000;
 }
 
@@ -38,6 +44,7 @@ fieldset {
 }
 
 input[type="text"],
+input[type="password"],
 textarea,
 select {
   padding: 0.5rem;
