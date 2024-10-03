@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 /// <reference path="../types.js" />
 
 import { html } from "hono/html";
