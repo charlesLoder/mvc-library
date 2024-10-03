@@ -6,9 +6,12 @@ import { html } from "hono/html";
  * @param {Object} options
  * @param {string} options.href
  * @param {string} options.text
+ * @param {string=} options.variant
  */
-export function DefaultButton({ href, text }) {
-  return html`<a class="button" href="${href}">${text}</a>`;
+export function BaseButton({ href, text, variant }) {
+  return html`<a class="button" ${variant ? `data-button-variant=${variant}` : ""} href="${href}"
+    >${text}</a
+  >`;
 }
 
 /**
@@ -16,7 +19,10 @@ export function DefaultButton({ href, text }) {
  * @param {string} href
  */
 export function ShowButton(href) {
-  return html`<a class="button" href="${href}">Show</a>`;
+  return BaseButton({
+    text: "Show",
+    href,
+  });
 }
 
 /**
@@ -24,7 +30,11 @@ export function ShowButton(href) {
  * @param {string} href
  */
 export function EditButton(href) {
-  return html`<a class="button" data-button-variant="edit" href="${href}">Edit</a>`;
+  return BaseButton({
+    text: "Edit",
+    variant: "edit",
+    href,
+  });
 }
 
 /**
@@ -32,5 +42,9 @@ export function EditButton(href) {
  * @param {string} href
  */
 export function DeleteButton(href) {
-  return html`<a class="button" data-button-variant="delete" href="${href}">Delete</a>`;
+  return BaseButton({
+    text: "Delete",
+    variant: "delete",
+    href,
+  });
 }
