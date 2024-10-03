@@ -45,9 +45,10 @@ class GenresView extends BaseView {
    * @param {Book[]} books
    */
   show(context, genre, books) {
+    const isAdmin = context.get("is_admin");
     const content = html`
       <p>${genre.description}</p>
-      <div>${EditButton(`/genres/${genre.id}/edit`)}</div>
+      ${isAdmin ? html` <div>${EditButton(`/genres/${genre.id}/edit`)}</div>` : html``}
       ${ListTemplate(
         context,
         `Books in ${genre.name}`,
@@ -60,11 +61,16 @@ class GenresView extends BaseView {
         }),
         "No books in this genre"
       )}
-      <div>
-        ${DeleteForm({
-          href: `/genres/${genre.id}/delete`,
-          text: `Delete ${genre.name}`,
-        })}
+      ${isAdmin
+        ? html` <div>
+            ${DeleteForm({
+              href: `/genres/${genre.id}/delete`,
+              text: `Delete ${genre.name}`,
+            })}
+          </div>`
+        : html``}
+      <div class="stack">
+        <a href="/genres">See all genres</a>
       </div>
     `;
     return ShowTemplate(context, {

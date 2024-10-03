@@ -45,9 +45,10 @@ class AuthorsView extends BaseView {
    * @param {Book[]} books
    */
   show(context, author, books) {
+    const isAdmin = context.get("is_admin");
     const content = html`
       <p>${author.bio}</p>
-      <div>${EditButton(`/authors/${author.id}/edit`)}</div>
+      ${isAdmin ? html` <div>${EditButton(`/authors/${author.id}/edit`)}</div>` : html``}
       ${ListTemplate(
         context,
         `Books by ${author.first_name} ${author.last_name}`,
@@ -60,11 +61,16 @@ class AuthorsView extends BaseView {
         }),
         "No books in this genre"
       )}
-      <div>
-        ${DeleteForm({
-          href: `/authors/${author.id}/delete`,
-          text: `Delete ${author.first_name} ${author.last_name}`,
-        })}
+      ${isAdmin
+        ? html` <div>
+            ${DeleteForm({
+              href: `/authors/${author.id}/delete`,
+              text: `Delete ${author.first_name} ${author.last_name}`,
+            })}
+          </div>`
+        : html``}
+      <div class="stack">
+        <a href="/authors">See all authors</a>
       </div>
     `;
     return ShowTemplate(context, {

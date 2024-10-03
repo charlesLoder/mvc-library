@@ -6,9 +6,25 @@ import { booksController } from "./controllers/books.controller.js";
 import { genresController } from "./controllers/genres.controller.js";
 
 /**
+ *
+ * @param {Context} context
+ * @param {import("hono").Next} next
+ */
+async function authenticateAdmin(context, next) {
+  if (!context.get("is_admin")) {
+    return context.redirect("/access-denied");
+  }
+  await next();
+}
+
+/**
  * @param {App} app
  */
 export default (app) => {
+  // protect editing and deleting routes, except for profile
+  app.use("/*(?!profile)/*/edit", authenticateAdmin);
+  app.use("/*/*/delete", authenticateAdmin);
+
   // books
   app.route("/books").get(booksController.index.bind(booksController)); // display all books
   app.route("/books").post(booksController.create.bind(booksController)); // creates a new book in database

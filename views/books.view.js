@@ -48,6 +48,7 @@ class BooksView extends BaseView {
    * @param {Genre | null} genre
    */
   show(context, book, authors, genre = null) {
+    const isAdmin = context.get("is_admin");
     //prettier-ignore
     const content = html`
       <div class="details summary">
@@ -65,6 +66,14 @@ class BooksView extends BaseView {
         <h3>Pubdate</h3>
         <p>${book.pubdate}</p>
       </div>
+      ${
+        isAdmin 
+        ? html`
+          <div>
+            ${EditButton(`/books/${book.id}/edit`)}
+          </div>`
+        : html``
+      }
       ${ListTemplate(context,`Authors`, authors?.map(author => {
         return {
           title: `${author.first_name} ${author.last_name}`,
@@ -72,8 +81,16 @@ class BooksView extends BaseView {
           edit_button_href: `/authors/${author.id}/edit`,
         }
       }), "No authors assigned")}
-      <div>
-       ${DeleteForm({ href: `/books/${book.id}/delete`, text: `Delete ${book.title}` })}
+      ${
+        isAdmin 
+        ? html`
+          <div>
+            ${DeleteForm({ href: `/books/${book.id}/delete`, text: `Delete ${book.title}` })}
+          </div>`
+        : html``
+      }
+      <div class="stack">
+        <a href="/books">See all books</a>
       </div>
     `;
     return ShowTemplate(context, {

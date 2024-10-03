@@ -1,6 +1,6 @@
 // @ts-check
 import { html } from "hono/html";
-import { DefaultButton } from "../../views/templates/partials/buttons.js";
+import { BaseButton } from "../../views/templates/partials/buttons.js";
 import { Base } from "../layout/base.js";
 import { ListTemplate } from "./partials/list.js";
 
@@ -19,6 +19,7 @@ import { ListTemplate } from "./partials/list.js";
  * @param {string} data.basePath the base path for the records
  */
 export const IndexTemplate = (context, { title, message, records, basePath }) => {
+  const isAdmin = context.get("is_admin");
   return Base(
     context,
     //prettier-ignore
@@ -30,9 +31,14 @@ export const IndexTemplate = (context, { title, message, records, basePath }) =>
           edit_button_href: `/${basePath}/${r.id}/edit`
         }
       }), "No records")}
-      <div>
-        ${DefaultButton({ href: `/${basePath}/new`, text: "New" })}
-      </div>
+      ${isAdmin 
+        ? html`
+            <div>
+              ${BaseButton({ href: `/${basePath}/new`, text: "New" })}
+            </div>
+          `
+        : ""}
+      
     `
   );
 };

@@ -19,13 +19,14 @@ export const ListItemTemplate = (
   context,
   { title, show_button_href = "", edit_button_href = "", delete_button_href = "" }
 ) => {
+  const isAdmin = context.get("is_admin");
   return html`
     <li class="list-item row">
       <div class="item-title">${title}</div>
       <div class="item-buttons row">
         ${show_button_href ? html`${ShowButton(show_button_href)}` : ""}
-        ${edit_button_href ? html`${EditButton(edit_button_href)}` : ""}
-        ${delete_button_href ? html`${DeleteButton(delete_button_href)}` : ""}
+        ${isAdmin && edit_button_href ? html`${EditButton(edit_button_href)}` : ""}
+        ${isAdmin && delete_button_href ? html`${DeleteButton(delete_button_href)}` : ""}
       </div>
     </li>
   `;
