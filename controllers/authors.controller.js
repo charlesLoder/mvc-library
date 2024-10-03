@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 import { AuthorsModel } from "../models/authors.model.js";
 import { AuthorsView } from "../views/authors.view.js";
 import { BaseController } from "./base.controller.js";

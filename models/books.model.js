@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 import { and, eq } from "drizzle-orm";
 import { book_authors, books } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";

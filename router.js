@@ -1,3 +1,4 @@
+// @ts-check
 import { authorsController } from "./controllers/authors.controller.js";
 import { booksController } from "./controllers/books.controller.js";
 import { genresController } from "./controllers/genres.controller.js";

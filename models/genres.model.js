@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 import { genres } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";
 

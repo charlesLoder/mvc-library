@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 import { html } from "hono/html";
 import { authors } from "../schemas/index.js";
 import { BaseView } from "./base.view.js";

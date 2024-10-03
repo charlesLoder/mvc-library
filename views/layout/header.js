@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 import { html } from "hono/html";
 import { DefaultButton } from "../templates/partials/buttons.js";
 

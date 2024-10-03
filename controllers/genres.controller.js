@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 import { BooksModel } from "../models/books.model.js";
 import { GenresModel } from "../models/genres.model.js";
 import { GenresView } from "../views/genres.view.js";
