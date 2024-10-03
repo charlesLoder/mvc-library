@@ -1,10 +1,12 @@
 // @ts-check
+/// <reference path="types.js" />
+
 import { authorsController } from "./controllers/authors.controller.js";
 import { booksController } from "./controllers/books.controller.js";
 import { genresController } from "./controllers/genres.controller.js";
 
 /**
- * @param {import("hono").Hono} app
+ * @param {App} app
  */
 export default (app) => {
   // books

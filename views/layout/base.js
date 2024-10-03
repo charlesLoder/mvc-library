@@ -1,13 +1,13 @@
 // @ts-check
+/// <reference path="../../types.js" />
+
 import { html } from "hono/html";
 import { Header } from "./header.js";
 
 /**
- * @typedef {import("hono").Context} context
- */
-
-/**
- * @param {context} context
+ * Base template
+ *
+ * @param {Context} context
  * @param {ReturnType<import("hono/html").html>} content the content to be rendered
  */
 const Base = (context, content) => {

@@ -1,13 +1,12 @@
 // @ts-check
+/// <reference path="../../types.js" />
 import { html } from "hono/html";
 import { DefaultButton } from "../templates/partials/buttons.js";
 
 /**
- * @typedef {import("hono").Context} context
- */
-
-/**
- * @param {context} context
+ * Header template
+ *
+ * @param {Context} context
  */
 const Header = (context) => {
   //prettier-ignore

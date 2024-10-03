@@ -1,15 +1,11 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import { AuthorsModel } from "../models/authors.model.js";
 import { BooksModel } from "../models/books.model.js";
 import { GenresModel } from "../models/genres.model.js";
 import { BooksView } from "../views/books.view.js";
 import { BaseController } from "./base.controller.js";
-
-/**
- * @typedef {import("hono").Context} Context
- * @typedef {import("../schemas/index.js").genres} GenresSchema
- *
- */
 
 /**
  * Controller for books

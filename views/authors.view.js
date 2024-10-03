@@ -1,4 +1,6 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import { html } from "hono/html";
 import { authors } from "../schemas/index.js";
 import { BaseView } from "./base.view.js";
@@ -8,12 +10,6 @@ import { EditButton } from "./templates/partials/buttons.js";
 import { DeleteForm } from "./templates/partials/forms.js";
 import { ListTemplate } from "./templates/partials/list.js";
 import { ShowTemplate } from "./templates/show.js";
-
-/**
- * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").authors>} Author
- * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").books>} Book
- * @typedef {import("hono").Context} Context
- */
 
 class AuthorsView extends BaseView {
   constructor() {

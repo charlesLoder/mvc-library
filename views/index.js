@@ -1,14 +1,12 @@
 //@ts-check
+/// <reference path="../types.js" />
+
 import { html } from "hono/html";
 import { Base } from "./layout/base.js";
 import { ListTemplate } from "./templates/partials/list.js";
 
 /**
- * @typedef {import("hono").Context} context
- */
-
-/**
- * @param {context} context
+ * @param {Context} context
  */
 const Index = (context) => {
   return Base(

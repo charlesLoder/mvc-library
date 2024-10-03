@@ -1,4 +1,6 @@
 // @ts-check
+/// <reference path="types.js" />
+
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { Hono } from "hono";
@@ -6,6 +8,9 @@ import router from "./router.js";
 import { NotFound } from "./views/404.js";
 import { Index } from "./views/index.js";
 
+/**
+ * @type {App}
+ */
 const app = new Hono();
 
 app.use("*", async (c, next) => {

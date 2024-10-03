@@ -1,4 +1,6 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import { Hono } from "hono";
@@ -6,7 +8,6 @@ import { Hono } from "hono";
 /**
  * @typedef {import("../models/base.model.js").BaseModel} BaseModel
  * @typedef {import("../views/base.view.js").BaseView} BaseView
- * @typedef {import("hono").Context} Context
  */
 
 /**

@@ -1,4 +1,6 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import { html } from "hono/html";
 import { authors } from "../schemas/index.js";
 import { BaseView } from "./base.view.js";
@@ -8,12 +10,6 @@ import { EditButton } from "./templates/partials/buttons.js";
 import { DeleteForm } from "./templates/partials/forms.js";
 import { ListTemplate } from "./templates/partials/list.js";
 import { ShowTemplate } from "./templates/show.js";
-
-/**
- * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").genres>} Genre
- * @typedef {import("drizzle-orm").InferSelectModel<typeof import("../schemas/index.js").books>} Book
- * @typedef {import("hono").Context} context
- */
 
 class GenresView extends BaseView {
   constructor() {
@@ -25,7 +21,7 @@ class GenresView extends BaseView {
   /**
    * Displays a list of genres
    *
-   * @param {context} context
+   * @param {Context} context
    * @param {Genre[]} genres
    */
   index(context, genres) {
@@ -44,7 +40,7 @@ class GenresView extends BaseView {
   /**
    * Displays a single genre and it's books
    *
-   * @param {context} context
+   * @param {Context} context
    * @param {Genre} genre
    * @param {Book[]} books
    */
@@ -77,7 +73,7 @@ class GenresView extends BaseView {
   }
 
   /**
-   * @param {context} context
+   * @param {Context} context
    * @param {Genre} genre
    */
   edit(context, genre) {
@@ -104,7 +100,7 @@ class GenresView extends BaseView {
   }
 
   /**
-   * @param {context} context
+   * @param {Context} context
    */
   new(context) {
     return Base(

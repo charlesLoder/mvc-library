@@ -1,4 +1,6 @@
 // @ts-check
+/// <reference path="../../../types.js" />
+
 import { html } from "hono/html";
 import { DeleteButton, EditButton, ShowButton } from "./buttons.js";
 
@@ -9,6 +11,7 @@ import { DeleteButton, EditButton, ShowButton } from "./buttons.js";
 /**
  * Template for a list item
  *
+ * @param {Context} context
  * @param {ListItemTemplateOptions} options
  *
  */
@@ -33,6 +36,7 @@ export const ListItemTemplate = ({
 /**
  * Template for a list
  *
+ * @param {Context} context
  * @param {string} title
  * @param {ListItemTemplateOptions[]} items
  * @param {string} empty_message

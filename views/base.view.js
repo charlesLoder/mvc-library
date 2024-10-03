@@ -1,4 +1,5 @@
 // @ts-check
+/// <reference path="../types.js" />
 
 import { html } from "hono/html";
 import { Base } from "./layout/base.js";
@@ -6,7 +7,6 @@ import { Base } from "./layout/base.js";
 /**
  * @typedef {import("../controllers/base.controller.js").BaseController} Controller
  * @typedef {import("drizzle-orm/sqlite-core").SQLiteTableWithColumns<ReturnType<import("drizzle-orm/sqlite-core").SQLiteSelectBase>>} Schema
- * @typedef {import("hono").Context} Context
  */
 
 /**
