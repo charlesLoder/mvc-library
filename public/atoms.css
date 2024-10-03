@@ -84,6 +84,52 @@
   }
 }
 
-.message {
-  font-style: italic;
+.callout {
+  /* Configuration */
+  --callout-padding: 0.5em 1em;
+  --callout-gap: 0.5em;
+  --callout-bg: var(--primary-color, #8693a0);
+  --callout-color: #000;
+  --callout-border-width: 2px;
+  --callout-border-style: solid;
+  --callout-border-color: none;
+  --callout-radius: 0.5em;
+  --callout-font-size: 1em;
+  --callout-heading-size: calc(1em + 0.5em);
+
+  /* Layout and spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--callout-gap);
+  padding: var(--callout-padding);
+
+  /* Colours */
+  background: var(--callout-bg);
+  color: var(--callout-color);
+
+  /* Stroke and radius */
+  border-width: var(--callout-border-width);
+  border-style: var(--callout-border-style);
+  border-color: var(--callout-border-color);
+  border-radius: var(--callout-radius);
+
+  /* Typography */
+  text-decoration: none;
+
+  font-size: var(--callout-font-size, 1em);
+  /* letter-spacing: 0.05ch; */
+  font-family: sans-serif;
+  line-height: 1.1;
+
+  .heading {
+    font-size: var(--callout-heading-size);
+    font-weight: var(--callout-heading-weight, 700);
+  }
+}
+
+.callout[data-callout-variant="error"] {
+  --callout-color: #ffffff;
+  --callout-bg: #b46269;
+  --callout-border-color: #67393d;
 }
