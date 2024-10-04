@@ -6,6 +6,11 @@ import { GenresModel } from "../models/genres.model.js";
 import { GenresView } from "../views/genres.view.js";
 import { BaseController } from "./base.controller.js";
 
+/**
+ * Controller for genres
+ *
+ * @class GenresController
+ */
 class GenresController extends BaseController {
   constructor() {
     const genresModel = new GenresModel();

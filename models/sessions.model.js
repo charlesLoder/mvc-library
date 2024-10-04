@@ -1,17 +1,19 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import { eq } from "drizzle-orm";
 import { sessions } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";
 
 /**
- * @typedef {import("../schemas/index.js").sessions} Sessions
+ *
  */
 
 /**
  * Model for sessions
  *
  * @class SessionsModel
- * @extends BaseModel<Sessions>
+ * @extends BaseModel<SessionsSchema>
  */
 class SessionsModel extends BaseModel {
   constructor() {

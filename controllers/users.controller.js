@@ -22,7 +22,7 @@ class UsersController extends BaseController {
   }
 
   /**
-   * Get a book by its ID.
+   * Get a user by their ID.
    *
    * @param {Context} context
    */

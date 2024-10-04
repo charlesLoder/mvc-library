@@ -1,18 +1,16 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import { hash } from "bcrypt";
 import { eq } from "drizzle-orm";
 import { users } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";
 
 /**
- * @typedef {import("../schemas/index.js").users} Users
- */
-
-/**
  * Model for users
  *
  * @class UsersModel
- * @extends BaseModel<Users>
+ * @extends BaseModel<UsersSchema>
  */
 class UsersModel extends BaseModel {
   constructor() {

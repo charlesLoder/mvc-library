@@ -8,6 +8,11 @@ import { SessionsModel } from "../models/sessions.model.js";
 import { UsersModel } from "../models/users.model.js";
 import { AuthView } from "../views/auth.view.js";
 
+/**
+ * Controller for auth
+ *
+ * @class AuthController
+ */
 class AuthController {
   constructor() {
     this.view = new AuthView();

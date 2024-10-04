@@ -1,5 +1,6 @@
 // @ts-check
 /// <reference path="../types.js" />
+
 import { AuthorsModel } from "../models/authors.model.js";
 import { AuthorsView } from "../views/authors.view.js";
 import { BaseController } from "./base.controller.js";

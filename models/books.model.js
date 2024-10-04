@@ -1,17 +1,15 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import { and, eq } from "drizzle-orm";
 import { book_authors, books } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";
 
 /**
- * @typedef {import("../schemas/index.js").books} Books
- */
-
-/**
  * Model for books
  *
  * @class BooksModel
- * @extends BaseModel<Books>
+ * @extends BaseModel<BooksSchema>
  */
 class BooksModel extends BaseModel {
   constructor() {

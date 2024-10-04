@@ -1,16 +1,14 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import { roles } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";
 
 /**
- * @typedef {import("../schemas/index.js").roles} Roles
- */
-
-/**
- * Model for users
+ * Model for roles
  *
  * @class RolesModel
- * @extends BaseModel<Roles>
+ * @extends BaseModel<RolesSchema>
  */
 class RolesModel extends BaseModel {
   constructor() {

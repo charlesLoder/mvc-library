@@ -1,16 +1,14 @@
 // @ts-check
+/// <reference path="../types.js" />
+
 import { genres } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";
-
-/**
- * @typedef {import("../schemas/index.js").genres} Genres
- */
 
 /**
  * Model for genres
  *
  * @class GenresModel
- * @extends BaseModel<Genres>
+ * @extends BaseModel<GenresSchema>
  */
 class GenresModel extends BaseModel {
   constructor() {
