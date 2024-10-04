@@ -8,11 +8,6 @@ import { UsersView } from "../views/users.view.js";
 import { BaseController } from "./base.controller.js";
 
 /**
- * @typedef {import("../schemas/index.js").users} UsersSchema
- *
- */
-
-/**
  * Controller for users
  *
  * @class UsersController
