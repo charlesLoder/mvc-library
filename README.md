@@ -11,6 +11,7 @@ I built this project for a few reasons:
 - I wanted to make a traditional web app (i.e. no JS frameworks)
 - I wanted to try some old technologies and new technologies (see below)
 - I wanted to use JSDocs instead of TypeScript (I do love TS though)
+- I wanted to hand roll my own auth using [session based auth](https://roadmap.sh/guides/session-based-authentication)
 
 ### the old and the new
 
@@ -91,3 +92,17 @@ npm run dev
 ```
 
 And navigate to localhost:3000
+
+## use
+
+The `seeds.sql` file generates one user:
+
+| Username | Password |
+| -------- | -------- |
+| admin    | super123 |
+
+And two roles — `admin` & `user`.
+
+`admin` has priveleges to edit & delete all records, including users.
+
+`user` can only edit their profile.
