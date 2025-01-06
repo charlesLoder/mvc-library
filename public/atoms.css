@@ -133,3 +133,9 @@
   --callout-bg: #b46269;
   --callout-border-color: #67393d;
 }
+
+.callout[data-callout-variant="success"] {
+  --callout-color: #ffffff;
+  --callout-bg: #5fad80;
+  --callout-border-color: #3f7d5d;
+}
