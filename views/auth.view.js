@@ -4,7 +4,7 @@
 import { html } from "hono/html";
 import { Base } from "./layout/base.js";
 import { EditButton } from "./templates/partials/buttons.js";
-import { ErrorCallout } from "./templates/partials/callouts.js";
+import { ErrorCallout, SuccessCallout } from "./templates/partials/callouts.js";
 import { DeleteForm } from "./templates/partials/forms.js";
 
 class AuthView {
@@ -42,6 +42,20 @@ class AuthView {
         </form>
         <div>Don't have an account? <a href="/signup">Sign up</a></div>
       `
+    );
+  }
+
+  /**
+   * Render a success message
+   *
+   * @param {Context} context
+   * @param {string} message
+   */
+  success(context, message) {
+    return Base(
+      context,
+      html`${SuccessCallout({ body: message })}
+        <div><a href="/">Home</a></div>`
     );
   }
 
