@@ -38,6 +38,7 @@ export default (app) => {
 
   // authors
   app.route("/authors").get(authorsController.index.bind(authorsController));
+  app.route("/authors").post(authorsController.create.bind(authorsController));
   app.route("/authors/new").get(authorsController.new.bind(authorsController));
   app.route("/authors/:id").get(authorsController.getById.bind(authorsController));
   app.route("/authors/:id").post(authorsController.update.bind(authorsController));
