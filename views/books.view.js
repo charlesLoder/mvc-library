@@ -163,8 +163,11 @@ class BooksView extends BaseView {
    * Render a view for a form to create a new book
    *
    * @param {Context} context
+   * @param {Object} data
+   * @param {Genre[]} data.genres
+   * @param {Author[]} data.authors
    */
-  new(context) {
+  new(context, { genres, authors }) {
     return Base(
       context,
       //prettier-ignore
@@ -173,11 +176,37 @@ class BooksView extends BaseView {
       <form action="/books" method="post" class="stack">
         <fieldset class="stack">
           <label for="title">Title</label>
-          <input type="text" name="title" />
+          <input type="text" name="title" required />
         </fieldset>
         <fieldset class="stack">
           <label for="pubdate">Pubdate</label>
-          <input type="text" name="pubdate" />
+          <input type="text" name="pubdate" required />
+        </fieldset>
+        <fieldset class="stack">
+          <label for="genre_id">Genre</label>
+          <select name="genre_id">
+            <option value="" selected disabled>Choose a genre</option>
+            ${genres.map(
+              (genre) => html`
+                <option value="${genre.id}">
+                  ${genre.name}
+                </option>
+              `
+            )}
+          </select>
+        </fieldset>
+        <fieldset class="stack">
+          <label for="author_id">Author</label>
+          <select name="author_id" required>
+            <option value="" selected disabled>Choose an author</option>
+            ${authors.map(
+              (author) => html`
+                <option value="${author.id}">
+                  ${author.first_name} ${author.last_name}
+                </option>
+              `
+            )}
+          </select>
         </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />

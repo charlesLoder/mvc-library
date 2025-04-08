@@ -82,16 +82,33 @@ class BooksController extends BaseController {
   }
 
   /**
+   * Returns a form to create a new book
+   *
+   * @param {Context} context
+   */
+  async new(context) {
+    const [genres, authors] = await Promise.all([
+      new GenresModel().getAll(),
+      new AuthorsModel().getAll(),
+    ]);
+    return context.html(this.view.new(context, { genres, authors }));
+  }
+
+  /**
    * Create a new book
    *
    * @param {Context} context
    */
   async create(context) {
-    const body = await context.req.parseBody();
+    const form = await context.req.formData();
+    const genre_id_string = form.get("genre_id")?.toString() ?? "";
+    const author_id = form.get("author_id")?.toString();
+    const author_ids = author_id ? [Number(author_id)] : [];
     const resp = await this.model.create({
-      title: String(body.title),
-      pubdate: String(body.pubdate),
-      genre_id: Number(body.genre_id),
+      title: form.get("title")?.toString() ?? "",
+      pubdate: form.get("pubdate")?.toString() ?? "",
+      genre_id: genre_id_string ? Number(genre_id_string) : null,
+      author_ids,
     });
     return context.redirect(`/books/${resp[0].id}`);
   }
