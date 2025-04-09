@@ -67,7 +67,7 @@ class BooksView extends BaseView {
         <p>${book.pubdate}</p>
       </div>
       ${
-        isAdmin 
+        isAdmin
         ? html`
           <div>
             ${EditButton(`/books/${book.id}/edit`)}
@@ -82,7 +82,7 @@ class BooksView extends BaseView {
         }
       }), "No authors assigned")}
       ${
-        isAdmin 
+        isAdmin
         ? html`
           <div>
             ${DeleteForm({ href: `/books/${book.id}/delete`, text: `Delete ${book.title}` })}
@@ -177,6 +177,20 @@ class BooksView extends BaseView {
         id="bookForm"
         method="POST"
         action="/books"
+        x-data="{
+          title: $persist(''),
+          pubdate: $persist(''),
+          genre_id: $persist(''),
+          author_id: $persist('')
+        }"
+        @submit.prevent="
+          const form = $el;
+          title = '';
+          pubdate = '';
+          genre_id = '';
+          author_id = '';
+          form.submit();
+        "
       >
         <fieldset class="stack">
           <label for="title">Title</label>
@@ -185,19 +199,17 @@ class BooksView extends BaseView {
             name="title"
             id="title"
             required
-            x-data="{ title: $persist('') }"
             x-model="title"
             x-text="title"
           />
         </fieldset>
         <fieldset class="stack">
           <label for="pubdate">Publication Date</label>
-          <input 
-            type="text" 
-            name="pubdate" 
-            id="pubdate" 
-            required 
-            x-data="{ pubdate: $persist('') }"
+          <input
+            type="text"
+            name="pubdate"
+            id="pubdate"
+            required
             x-model="pubdate"
             x-text="pubdate"
           />
@@ -205,10 +217,9 @@ class BooksView extends BaseView {
         <fieldset class="stack">
           <label for="genre_id">Genre</label>
           <div class="stack">
-            <select 
-              name="genre_id" 
-              required 
-              x-data="{ genre_id: $persist('') }"
+            <select
+              name="genre_id"
+              required
               x-model="genre_id"
             >
               <option value="" selected disabled>Choose a genre</option>
@@ -233,13 +244,12 @@ class BooksView extends BaseView {
         <fieldset class="stack">
           <label for="author_id">Author</label>
           <div class="stack">
-            <select 
-              name="author_id" 
-              required 
-              x-data="{ author_id: $persist('') }"
+            <select
+              name="author_id"
+              required
               x-model="author_id"
             >
-              <option value="" disabled>Choose an author</option>
+              <option value="" selected disabled>Choose an author</option>
               ${authors.map(
                 (author) => html`
                   <option value="${author.id}">
