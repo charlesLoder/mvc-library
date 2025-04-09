@@ -56,9 +56,8 @@ class GenresController extends BaseController {
       name: String(body.name),
       description: String(body.description),
     });
-    console.log(context.req.query("redirect"));
 
-    return context.redirect(context.req.query("redirect") || `/genres/${resp[0].id}`);
+    return context.redirect(`/genres/${resp[0].id}`);
   }
 
   /**

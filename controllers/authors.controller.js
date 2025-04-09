@@ -85,7 +85,7 @@ class AuthorsController extends BaseController {
       bio: String(body.bio),
     });
 
-    return context.redirect(context.req.query("redirect") || `/authors/${resp[0].id}`);
+    return context.redirect(`/authors/${resp[0].id}`);
   }
 }
 
