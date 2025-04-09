@@ -177,18 +177,19 @@ class BooksView extends BaseView {
         id="bookForm"
         method="POST"
         action="/books"
+        class="stack"
         x-data="{
           title: $persist(''),
           pubdate: $persist(''),
           genre_id: $persist(''),
-          author_id: $persist('')
+          author_ids: $persist([''])
         }"
         @submit.prevent="
           const form = $el;
           title = '';
           pubdate = '';
           genre_id = '';
-          author_id = '';
+          author_ids = [''];
           form.submit();
         "
       >
@@ -205,11 +206,11 @@ class BooksView extends BaseView {
         </fieldset>
         <fieldset class="stack">
           <label for="pubdate">Publication Date</label>
-          <input
-            type="text"
-            name="pubdate"
-            id="pubdate"
-            required
+          <input 
+            type="text" 
+            name="pubdate" 
+            id="pubdate" 
+            required 
             x-model="pubdate"
             x-text="pubdate"
           />
@@ -217,9 +218,9 @@ class BooksView extends BaseView {
         <fieldset class="stack">
           <label for="genre_id">Genre</label>
           <div class="stack">
-            <select
-              name="genre_id"
-              required
+            <select 
+              name="genre_id" 
+              required 
               x-model="genre_id"
             >
               <option value="" selected disabled>Choose a genre</option>
@@ -241,24 +242,44 @@ class BooksView extends BaseView {
             </div>
           </div>
         </fieldset>
-        <fieldset class="stack">
-          <label for="author_id">Author</label>
+        <fieldset>
+          <label>Authors</label>
           <div class="stack">
-            <select
-              name="author_id"
-              required
-              x-model="author_id"
-            >
-              <option value="" selected disabled>Choose an author</option>
-              ${authors.map(
-                (author) => html`
-                  <option value="${author.id}">
-                    ${author.first_name} ${author.last_name}
-                  </option>
-                `
-              )}
-            </select>
+            <template x-for="(author_id, index) in author_ids" :key="index">
+              <div>
+                <select 
+                  :name="'author_ids[]'" 
+                  required 
+                  x-model="author_ids[index]"
+                  class="flex-1"
+                >
+                  <option value="" selected disabled>Choose an author</option>
+                  ${authors.map(
+                    (author) => html`
+                      <option value="${author.id}">
+                        ${author.first_name} ${author.last_name}
+                      </option>
+                    `
+                  )}
+                </select>
+                <button 
+                  type="button" 
+                  data-button-variant="delete"
+                  class="button danger px-2"
+                  @click="author_ids.splice(index, 1)"
+                >
+                  ×
+                </button>
+              </div>
+            </template>
             <div>
+              <button 
+                type="button" 
+                class="button" 
+                @click="author_ids.push('')"
+              >
+                + Add Author
+              </button>
               <a
                 class="button"
                 href="/authors/new?redirect=/books/new"

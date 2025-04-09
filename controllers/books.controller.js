@@ -102,8 +102,7 @@ class BooksController extends BaseController {
   async create(context) {
     const form = await context.req.formData();
     const genre_id_string = form.get("genre_id")?.toString() ?? "";
-    const author_id = form.get("author_id")?.toString();
-    const author_ids = author_id ? [Number(author_id)] : [];
+    const author_ids = Array.from(form.getAll("author_ids[]")).map((id) => Number(id.toString()));
     const resp = await this.model.create({
       title: form.get("title")?.toString() ?? "",
       pubdate: form.get("pubdate")?.toString() ?? "",
