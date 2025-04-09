@@ -52,11 +52,13 @@ class GenresController extends BaseController {
    */
   async create(context) {
     const body = await context.req.parseBody();
-    const resp = this.model.create({
+    const resp = await this.model.create({
       name: String(body.name),
       description: String(body.description),
     });
-    return context.redirect(`/genres/${resp[0].id}`);
+    console.log(context.req.query("redirect"));
+
+    return context.redirect(context.req.query("redirect") || `/genres/${resp[0].id}`);
   }
 
   /**

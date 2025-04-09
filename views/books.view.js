@@ -173,45 +173,97 @@ class BooksView extends BaseView {
       //prettier-ignore
       html`
       <h1>New Book</h1>
-      <form action="/books" method="post" class="stack">
+      <form
+        id="bookForm"
+        method="POST"
+        action="/books"
+      >
         <fieldset class="stack">
           <label for="title">Title</label>
-          <input type="text" name="title" required />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            required
+            x-data="{ title: $persist('') }"
+            x-model="title"
+            x-text="title"
+          />
         </fieldset>
         <fieldset class="stack">
-          <label for="pubdate">Pubdate</label>
-          <input type="text" name="pubdate" required />
+          <label for="pubdate">Publication Date</label>
+          <input 
+            type="text" 
+            name="pubdate" 
+            id="pubdate" 
+            required 
+            x-data="{ pubdate: $persist('') }"
+            x-model="pubdate"
+            x-text="pubdate"
+          />
         </fieldset>
         <fieldset class="stack">
           <label for="genre_id">Genre</label>
-          <select name="genre_id">
-            <option value="" selected disabled>Choose a genre</option>
-            ${genres.map(
-              (genre) => html`
-                <option value="${genre.id}">
-                  ${genre.name}
-                </option>
-              `
-            )}
-          </select>
+          <div class="stack">
+            <select 
+              name="genre_id" 
+              required 
+              x-data="{ genre_id: $persist('') }"
+              x-model="genre_id"
+            >
+              <option value="" selected disabled>Choose a genre</option>
+              ${genres.map(
+                (genre) => html`
+                  <option value="${genre.id}">
+                    ${genre.name}
+                  </option>
+                `
+              )}
+            </select>
+            <div>
+              <a
+                class="button"
+                href="/genres/new?redirect=/books/new"
+              >
+                Create New Genre
+              </a>
+            </div>
+          </div>
         </fieldset>
         <fieldset class="stack">
           <label for="author_id">Author</label>
-          <select name="author_id" required>
-            <option value="" selected disabled>Choose an author</option>
-            ${authors.map(
-              (author) => html`
-                <option value="${author.id}">
-                  ${author.first_name} ${author.last_name}
-                </option>
-              `
-            )}
-          </select>
+          <div class="stack">
+            <select 
+              name="author_id" 
+              required 
+              x-data="{ author_id: $persist('') }"
+              x-model="author_id"
+            >
+              <option value="" disabled>Choose an author</option>
+              ${authors.map(
+                (author) => html`
+                  <option value="${author.id}">
+                    ${author.first_name} ${author.last_name}
+                  </option>
+                `
+              )}
+            </select>
+            <div>
+              <a
+                class="button"
+                href="/authors/new?redirect=/books/new"
+              >
+                Create New Author
+              </a>
+            </div>
+          </div>
         </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />
         </div>
       </form>
+      <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+      <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
       `
     );
   }
