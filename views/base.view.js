@@ -59,6 +59,14 @@ class BaseView {
   new(context, ..._args) {
     return Base(context, html`<h1>Need to implement a view</h1>`);
   }
+
+  /**
+   * @param {Context} context
+   * @param {any} _args
+   */
+  formatRedirect(context, ..._args) {
+    return context.req.query("redirect") ? `?redirect=${context.req.query("redirect")}` : "";
+  }
 }
 
 export { BaseView };

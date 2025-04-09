@@ -126,7 +126,7 @@ class AuthorsView extends BaseView {
       //prettier-ignore
       html`
       <h1>New Author</h1>
-      <form action="/authors${context.req.query("redirect") ? `?redirect=${context.req.query("redirect")}` : ""}" method="post" class="stack">
+      <form action="/authors${this.formatRedirect(context)}" method="post" class="stack">
         <fieldset class="stack">
           <div class="stack">
             <label for="first_name">First Name</label>
