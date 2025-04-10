@@ -88,7 +88,7 @@ class AuthController {
 
       this.#setSessionCookie(context, session[0].token);
 
-      return context.redirect(context.req.query("redirect") ?? "/");
+      return context.redirect("/");
     } catch (error) {
       console.error("Signin error:", error);
       return context.html(this.view.signin(context, error?.message ?? "An error occurred"));

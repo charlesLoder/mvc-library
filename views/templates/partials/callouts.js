@@ -44,3 +44,17 @@ export function WarningCallout({ heading, body }) {
     body,
   });
 }
+
+/**
+ * A success callout
+ *
+ * @param {Object} options
+ * @param {(string | ReturnType<typeof html>)=} options.body
+ */
+export function SuccessCallout({ body }) {
+  return BaseCallout({
+    heading: "Success",
+    variant: "success",
+    body,
+  });
+}

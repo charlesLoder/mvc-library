@@ -117,6 +117,33 @@ class BooksModel extends BaseModel {
 
     return updateBookResp;
   }
+
+  /**
+   * Create a new book
+   *
+   * @param {object} data
+   * @param {string} data.title
+   * @param {string} data.pubdate
+   * @param {number | null} data.genre_id
+   * @param {number[]} data.author_ids
+   */
+  async create(data) {
+    const { author_ids, ...bookData } = data;
+    const [book] = await super.create(bookData);
+
+    if (author_ids?.length) {
+      await Promise.all(
+        author_ids.map((author_id) =>
+          this.db.insert(book_authors).values({
+            book_id: book.id,
+            author_id,
+          })
+        )
+      );
+    }
+
+    return [book];
+  }
 }
 
 export { BooksModel };

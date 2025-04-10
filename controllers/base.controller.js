@@ -33,22 +33,6 @@ class BaseController {
   }
 
   /**
-   * Parse and validate query parameters
-   *
-   * @param {Context} context
-   * @returns {{[key: string]: string[]}}
-   */
-  parseQueryParams(context) {
-    return this.allowedQueryParams.reduce((acc, param) => {
-      const value = context.req.queries(param);
-      if (value !== undefined) {
-        acc[param] = value;
-      }
-      return acc;
-    }, {});
-  }
-
-  /**
    * Get all records from the database and render a view
    *
    * @param {Context} context

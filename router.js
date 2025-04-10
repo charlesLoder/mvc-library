@@ -23,6 +23,23 @@ async function authenticateAdmin(context, next) {
  * @param {App} app
  */
 export default (app) => {
+  // redirect override
+  app.use("*", async (c, next) => {
+    const originalRedirect = c.redirect.bind(c);
+
+    c.redirect = (path) => {
+      const redirectOverride = c.req.query("redirect");
+      if (redirectOverride) {
+        console.log(`Redirect override detected: ${path} -> ${redirectOverride}`);
+        return originalRedirect(redirectOverride);
+      }
+
+      return originalRedirect(path);
+    };
+
+    await next();
+  });
+
   // protect editing and deleting routes, except for profile
   app.use("/*(?!profile)/*/edit", authenticateAdmin);
   app.use("/*/*/delete", authenticateAdmin);
@@ -38,6 +55,7 @@ export default (app) => {
 
   // authors
   app.route("/authors").get(authorsController.index.bind(authorsController));
+  app.route("/authors").post(authorsController.create.bind(authorsController));
   app.route("/authors/new").get(authorsController.new.bind(authorsController));
   app.route("/authors/:id").get(authorsController.getById.bind(authorsController));
   app.route("/authors/:id").post(authorsController.update.bind(authorsController));

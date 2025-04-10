@@ -71,6 +71,22 @@ class AuthorsController extends BaseController {
     await this.model.delete(id);
     return context.redirect(`/authors`);
   }
+
+  /**
+   * Create a new author
+   *
+   * @param {Context} context
+   */
+  async create(context) {
+    const body = await context.req.parseBody();
+    const resp = await this.model.create({
+      first_name: String(body.first_name),
+      last_name: String(body.last_name),
+      bio: String(body.bio),
+    });
+
+    return context.redirect(`/authors/${resp[0].id}`);
+  }
 }
 
 export const authorsController = new AuthorsController();

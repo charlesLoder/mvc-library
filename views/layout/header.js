@@ -17,7 +17,7 @@ const Header = (context) => {
         <div class="row">
         <div class="title"><a href="/">MVC Library</a></div>
         ${BaseButton({ 
-            href: context.get("session") ? "/profile" :`/signin?redirect=${encodeURIComponent(context.req.routePath)}`,
+            href: context.get("session") ? "/profile" :`/signin?redirect=${encodeURIComponent(context.req.path)}`,
             text: context.get("session") ? "Profile" : "Sign in" 
           })}
         </div>

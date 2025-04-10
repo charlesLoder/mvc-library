@@ -115,7 +115,7 @@ class GenresView extends BaseView {
       //prettier-ignore
       html`
       <h1>New Genre</h1>
-      <form action="/genres" method="post" class="stack"> 
+      <form action="/genres${this.formatRedirect(context)}" method="post" class="stack"> 
         <fieldset class="stack">
           <label for="name">Name</label>
           <input type="text" name="name" />

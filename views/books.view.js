@@ -67,7 +67,7 @@ class BooksView extends BaseView {
         <p>${book.pubdate}</p>
       </div>
       ${
-        isAdmin 
+        isAdmin
         ? html`
           <div>
             ${EditButton(`/books/${book.id}/edit`)}
@@ -82,7 +82,7 @@ class BooksView extends BaseView {
         }
       }), "No authors assigned")}
       ${
-        isAdmin 
+        isAdmin
         ? html`
           <div>
             ${DeleteForm({ href: `/books/${book.id}/delete`, text: `Delete ${book.title}` })}
@@ -163,26 +163,138 @@ class BooksView extends BaseView {
    * Render a view for a form to create a new book
    *
    * @param {Context} context
+   * @param {Object} data
+   * @param {Genre[]} data.genres
+   * @param {Author[]} data.authors
    */
-  new(context) {
+  new(context, { genres, authors }) {
     return Base(
       context,
       //prettier-ignore
       html`
       <h1>New Book</h1>
-      <form action="/books" method="post" class="stack">
+      <form
+        id="bookForm"
+        method="POST"
+        action="/books"
+        class="stack"
+        x-data="{
+          title: $persist(''),
+          pubdate: $persist(''),
+          genre_id: $persist(''),
+          author_ids: $persist([''])
+        }"
+        @submit.prevent="
+          const form = $el;
+          title = '';
+          pubdate = '';
+          genre_id = '';
+          author_ids = [''];
+          form.submit();
+        "
+      >
         <fieldset class="stack">
           <label for="title">Title</label>
-          <input type="text" name="title" />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            required
+            x-model="title"
+            x-text="title"
+          />
         </fieldset>
         <fieldset class="stack">
-          <label for="pubdate">Pubdate</label>
-          <input type="text" name="pubdate" />
+          <label for="pubdate">Publication Date</label>
+          <input 
+            type="text" 
+            name="pubdate" 
+            id="pubdate" 
+            required 
+            x-model="pubdate"
+            x-text="pubdate"
+          />
+        </fieldset>
+        <fieldset class="stack">
+          <label for="genre_id">Genre</label>
+          <div class="stack">
+            <select 
+              name="genre_id" 
+              required 
+              x-model="genre_id"
+            >
+              <option value="" selected disabled>Choose a genre</option>
+              ${genres.map(
+                (genre) => html`
+                  <option value="${genre.id}">
+                    ${genre.name}
+                  </option>
+                `
+              )}
+            </select>
+            <div>
+              <a
+                class="button"
+                href="/genres/new?redirect=/books/new"
+              >
+                Create New Genre
+              </a>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <label>Authors</label>
+          <div class="stack">
+            <template x-for="(author_id, index) in author_ids" :key="index">
+              <div>
+                <select 
+                  :name="'author_ids[]'" 
+                  required 
+                  x-model="author_ids[index]"
+                  class="flex-1"
+                >
+                  <option value="" selected disabled>Choose an author</option>
+                  ${authors.map(
+                    (author) => html`
+                      <option value="${author.id}">
+                        ${author.first_name} ${author.last_name}
+                      </option>
+                    `
+                  )}
+                </select>
+                <button 
+                  type="button" 
+                  data-button-variant="delete"
+                  class="button danger px-2"
+                  @click="author_ids.splice(index, 1)"
+                >
+                  ×
+                </button>
+              </div>
+            </template>
+            <div>
+              <button 
+                type="button" 
+                class="button" 
+                @click="author_ids.push('')"
+              >
+                + Add Author
+              </button>
+              <a
+                class="button"
+                href="/authors/new?redirect=/books/new"
+              >
+                Create New Author
+              </a>
+            </div>
+          </div>
         </fieldset>
         <div>
           <input type="submit" class="button button-edit" value="Save" />
         </div>
       </form>
+      <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+      <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
       `
     );
   }
