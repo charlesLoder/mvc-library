@@ -22,9 +22,14 @@ class GenresView extends BaseView {
    * Displays a list of genres
    *
    * @param {Context} context
-   * @param {Genre[]} genres
+   * @param {Object} data
+   * @param {Genre[]} data.genres
+   * @param {number} data.total
+   * @param {number} data.size
+   * @param {number} data.offset
+   * @param {string=} data.message
    */
-  index(context, genres) {
+  index(context, { genres, total, size, offset, message = "" }) {
     return IndexTemplate(context, {
       title: "Genres",
       records: genres.map((genre) => {
@@ -34,6 +39,11 @@ class GenresView extends BaseView {
         };
       }),
       basePath: "genres",
+      pagination: {
+        total,
+        size,
+        offset,
+      },
     });
   }
 

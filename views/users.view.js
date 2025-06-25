@@ -24,11 +24,17 @@ class UsersView extends BaseView {
    * Displays a list of users
    *
    * @param {Context} context
-   * @param {User[]} users
+   * @param {Object} data
+   * @param {User[]} data.users
+   * @param {number} data.total
+   * @param {number} data.size
+   * @param {number} data.offset
+   * @param {string=} data.message
    */
-  index(context, users) {
+  index(context, { users, total, size, offset, message = "" }) {
     return IndexTemplate(context, {
       title: "Users",
+      message,
       records: users.map((user) => {
         return {
           text: user.username,
@@ -36,6 +42,11 @@ class UsersView extends BaseView {
         };
       }),
       basePath: "users",
+      pagination: {
+        total,
+        size,
+        offset,
+      },
     });
   }
 

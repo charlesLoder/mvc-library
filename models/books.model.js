@@ -1,7 +1,7 @@
 // @ts-check
 /// <reference path="../types.js" />
 
-import { and, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { book_authors, books } from "../schemas/index.js";
 import { BaseModel } from "./base.model.js";
 
@@ -18,7 +18,14 @@ class BooksModel extends BaseModel {
     this.schema = books;
   }
 
-  async getAll() {
+  /**
+   * Get all records from the database
+   *
+   * @param {Object} [options]
+   * @param {number} [options.size] - the number of books to return
+   * @param {number} [options.offset] - the offset for pagination
+   */
+  async getAll({ size, offset } = {}) {
     return await this.db.query.books.findMany({
       with: {
         genre: true,
@@ -28,6 +35,9 @@ class BooksModel extends BaseModel {
           },
         },
       },
+      orderBy: [asc(books.title)],
+      limit: size,
+      offset,
     });
   }
 

@@ -22,9 +22,14 @@ class AuthorsView extends BaseView {
    * Displays a list of authors
    *
    * @param {Context} context
-   * @param {Author[]} authors
+   * @param {Object} data
+   * @param {Author[]} data.authors
+   * @param {number} data.total
+   * @param {number} data.size
+   * @param {number} data.offset
+   * @param {string=} data.message
    */
-  index(context, authors) {
+  index(context, { authors, total, size, offset, message = "" }) {
     return IndexTemplate(context, {
       title: "Authors",
       records: authors.map((author) => {
@@ -34,6 +39,11 @@ class AuthorsView extends BaseView {
         };
       }),
       basePath: "authors",
+      pagination: {
+        total,
+        size,
+        offset,
+      },
     });
   }
 

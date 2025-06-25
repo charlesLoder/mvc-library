@@ -22,6 +22,25 @@ class BooksController extends BaseController {
   }
 
   /**
+   * Get all books from the database and render a view
+   *
+   * @param {Context} context
+   */
+  async index(context) {
+    const total = await this.model.getCount();
+    const { size, offset } = context.get("pagination");
+    const books = await this.model.getAll({ size, offset });
+    return context.html(
+      this.view.index(context, {
+        books,
+        total: total[0].count,
+        size,
+        offset,
+        message: context.req.query("message") || "",
+      })
+    );
+  }
+  /**
    * Get a book by its ID.
    *
    * @param {Context} context

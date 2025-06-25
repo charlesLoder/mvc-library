@@ -1,6 +1,7 @@
 // @ts-check
 /// <reference path="types.js" />
 
+import { createMiddleware } from "hono/factory";
 import { authController } from "./controllers/auth.controller.js";
 import { authorsController } from "./controllers/authors.controller.js";
 import { booksController } from "./controllers/books.controller.js";
@@ -18,6 +19,35 @@ async function authenticateAdmin(context, next) {
   }
   await next();
 }
+
+/**
+ *
+ * @param {Context} context
+ * @param {import("hono").Next} next
+ */
+const addPagination = createMiddleware(async (context, next) => {
+  const url = new URL(context.req.url);
+  const size = url.searchParams.get("size");
+  const offset = url.searchParams.get("offset");
+
+  if (!size || !offset) {
+    const defaultSize = size || "20";
+    const defaultOffset = offset || "0";
+
+    url.searchParams.set("size", defaultSize);
+    url.searchParams.set("offset", defaultOffset);
+
+    return context.redirect(url.toString());
+  }
+
+  // Add parsed pagination to context for type safety
+  context.set("pagination", {
+    size: Number(size),
+    offset: Number(offset),
+  });
+
+  await next();
+});
 
 /**
  * @param {App} app
@@ -45,7 +75,7 @@ export default (app) => {
   app.use("/*/*/delete", authenticateAdmin);
 
   // books
-  app.route("/books").get(booksController.index.bind(booksController)); // display all books
+  app.route("/books").use(addPagination).get(booksController.index.bind(booksController)); // display all books
   app.route("/books").post(booksController.create.bind(booksController)); // creates a new book in database
   app.route("/books/new").get(booksController.new.bind(booksController)); // displays a form to create a new book
   app.route("/books/:id").get(booksController.getById.bind(booksController)); // display a single book
@@ -54,7 +84,7 @@ export default (app) => {
   app.route("/books/:id/delete").post(booksController.delete.bind(booksController)); // delete a book
 
   // authors
-  app.route("/authors").get(authorsController.index.bind(authorsController));
+  app.route("/authors").use(addPagination).get(authorsController.index.bind(authorsController));
   app.route("/authors").post(authorsController.create.bind(authorsController));
   app.route("/authors/new").get(authorsController.new.bind(authorsController));
   app.route("/authors/:id").get(authorsController.getById.bind(authorsController));
@@ -63,7 +93,7 @@ export default (app) => {
   app.route("/authors/:id/delete").post(authorsController.delete.bind(authorsController));
 
   //genres
-  app.route("/genres").get(genresController.index.bind(genresController));
+  app.route("/genres").use(addPagination).get(genresController.index.bind(genresController));
   app.route("/genres").post(genresController.create.bind(genresController));
   app.route("/genres/new").get(genresController.new.bind(genresController));
   app.route("/genres/:id").get(genresController.getById.bind(genresController));
@@ -84,7 +114,7 @@ export default (app) => {
   // users
   // protect users routes from everyone except for admin
   app.use("/users/*", authenticateAdmin);
-  app.route("/users").get(usersController.index.bind(usersController));
+  app.route("/users").use(addPagination).get(usersController.index.bind(usersController));
   app.route("/users").post(usersController.create.bind(usersController));
   app.route("/users/new").get(usersController.new.bind(usersController));
   app.route("/users/:id").get(usersController.getById.bind(usersController));

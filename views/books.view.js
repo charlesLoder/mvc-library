@@ -22,10 +22,14 @@ class BooksView extends BaseView {
    * Displays a list of books
    *
    * @param {Context} context
-   * @param {Book[]} books
-   * @param {string=} message
+   * @param {Object} data
+   * @param {Book[]} data.books
+   * @param {number} data.total
+   * @param {number} data.size
+   * @param {number} data.offset
+   * @param {string=} data.message
    */
-  index(context, books, message = "") {
+  index(context, { books, total, size, offset, message = "" }) {
     return IndexTemplate(context, {
       title: "Books",
       message,
@@ -36,6 +40,11 @@ class BooksView extends BaseView {
         };
       }),
       basePath: "books",
+      pagination: {
+        total,
+        size,
+        offset,
+      },
     });
   }
 

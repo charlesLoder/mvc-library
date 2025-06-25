@@ -22,6 +22,26 @@ class UsersController extends BaseController {
   }
 
   /**
+   * Get all users from the database and render a view
+   *
+   * @param {Context} context
+   */
+  async index(context) {
+    const total = await this.model.getCount();
+    const { size, offset } = context.get("pagination");
+    const users = await this.model.getAll({ size, offset });
+    return context.html(
+      this.view.index(context, {
+        users,
+        total: total[0].count,
+        size,
+        offset,
+        message: context.req.query("message") || "",
+      })
+    );
+  }
+
+  /**
    * Get a user by their ID.
    *
    * @param {Context} context
