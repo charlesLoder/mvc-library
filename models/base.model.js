@@ -1,6 +1,6 @@
 // @ts-check
 import Database from "better-sqlite3";
-import { eq } from "drizzle-orm";
+import { asc, count, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as dbSchema from "../schemas/index.js";
 
@@ -33,9 +33,20 @@ class BaseModel {
 
   /**
    * Get all records from the database
+   *
+   * @param {Object} [options]
+   * @param {number} [options.size] - the number of records to return
+   * @param {number} [options.offset] - the offset for pagination
    */
-  async getAll() {
-    return await this.db.select().from(this.schema);
+  async getAll({ size, offset } = {}) {
+    const query = this.db.select().from(this.schema).orderBy(asc(this.schema.id));
+    if (size) {
+      query.limit(size);
+    }
+    if (offset) {
+      query.offset(offset);
+    }
+    return await query;
   }
 
   /**
@@ -45,6 +56,15 @@ class BaseModel {
    */
   async getById(id) {
     return await this.db.select().from(this.schema).where(eq(this.schema.id, id));
+  }
+
+  /**
+   * Get the count of records in the table
+   *
+   * @returns {Promise<{count: number}[]>} - Returns the count of records in the table
+   */
+  async getCount() {
+    return await this.db.select({ count: count(this.schema.id) }).from(this.schema);
   }
 
   /**
