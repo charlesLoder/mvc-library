@@ -20,9 +20,14 @@
 /**
  * @typedef {Awaited<ReturnType<import("./models/sessions.model").SessionsModel["getUserBySessionToken"]>>} Session
  *
+ * @typedef {Object} PaginationParams
+ * @property {number} PaginationParams.size
+ * @property {number} PaginationParams.offset
+ *
  * @typedef {Object} SessionVariables
  * @property {Session} SessionVariables.session
  * @property {boolean} SessionVariables.is_admin
+ * @property {PaginationParams} SessionVariables.pagination
  *
  * @typedef {import("hono").Hono<{Variables: SessionVariables}>} App
  *
