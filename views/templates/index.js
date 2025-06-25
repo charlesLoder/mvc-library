@@ -17,9 +17,14 @@ import { ListTemplate } from "./partials/list.js";
  * @param {string} data.records[].text the text to be displayed
  * @param {number} data.records[].id the id of the record
  * @param {string} data.basePath the base path for the records
+ * @param {object} data.pagination
+ * @param {number} data.pagination.size the number of records to display per page
+ * @param {number} data.pagination.offset the offset for pagination
+ * @param {number} data.pagination.total the total number of records
  */
-export const IndexTemplate = (context, { title, message, records, basePath }) => {
+export const IndexTemplate = (context, { title, message, records, basePath, pagination }) => {
   const isAdmin = context.get("is_admin");
+  const hasPagination = pagination && pagination.total > pagination.size;
   return Base(
     context,
     //prettier-ignore
@@ -31,6 +36,23 @@ export const IndexTemplate = (context, { title, message, records, basePath }) =>
           edit_button_href: `/${basePath}/${r.id}/edit`
         }
       }), "No records")}
+      ${hasPagination
+        ? html`
+            <div class="row pagination">
+              <p>Showing ${pagination.offset + 1} to ${Math.min(pagination.offset + pagination.size, pagination.total)} of ${pagination.total} records</p>
+              <div>
+                ${pagination.offset > 0 ?
+                  BaseButton({ href: `/${basePath}?offset=${Math.max(pagination.offset - pagination.size, 0)}&size=${pagination.size}`, text: "Previous" })
+                  : ""
+                }
+                ${pagination.total > (pagination.offset + pagination.size) ?
+                  BaseButton({ href: `/${basePath}?size=${pagination.size}&offset=${pagination.offset + pagination.size}`, text: "Next" })
+                  : ""
+                }
+              </div>
+            </div>
+          `
+        : ""}
       ${isAdmin 
         ? html`
             <div>

@@ -15,6 +15,26 @@ class AuthorsController extends BaseController {
   }
 
   /**
+   * Get all the authors from the database and render a view
+   *
+   * @param {Context} context
+   */
+  async index(context) {
+    const total = await this.model.getCount();
+    const { size, offset } = context.get("pagination");
+    const authors = await this.model.getAll({ size, offset });
+    return context.html(
+      this.view.index(context, {
+        authors,
+        total: total[0].count,
+        size,
+        offset,
+        message: context.req.query("message") || "",
+      })
+    );
+  }
+
+  /**
    * Get a author by its ID.
    *
    * @param {Context} context

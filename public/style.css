@@ -60,3 +60,7 @@ select {
 textarea {
   resize: vertical;
 }
+
+.pagination > p {
+  font-style: italic;
+}

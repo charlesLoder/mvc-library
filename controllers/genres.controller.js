@@ -21,6 +21,26 @@ class GenresController extends BaseController {
   }
 
   /**
+   * Get all the genres from the database and render a view
+   *
+   * @param {Context} context
+   */
+  async index(context) {
+    const total = await this.model.getCount();
+    const { size, offset } = context.get("pagination");
+    const genres = await this.model.getAll({ size, offset });
+    return context.html(
+      this.view.index(context, {
+        genres,
+        total: total[0].count,
+        size,
+        offset,
+        message: context.req.query("message") || "",
+      })
+    );
+  }
+
+  /**
    * Get a genre by its ID.
    *
    * @param {Context} context
